@@ -11,5 +11,9 @@ Steps in the projects:
 
 ## DATA
 
+Need to make 2 requests: to CSV file and TopoJSON file (for map data).
 
+I use a d3.queue() which includes 2 defer() calls -> d3.csv and d3.json to fetch the data.
+
+I then use a formatter callback to transfer data from rows in a CSV to an array of JS objects.
 
