@@ -64,8 +64,12 @@ d3.queue()
 
     var units = dataType === "emissions" ? "thousand metric tons" : "metric tons per capita";
     var data;
+    var percentage = "";
     if(isCountry) data = tgt.data()[0].properties;
-    if(isArc) data = tgt.data()[0].data;
+    if(isArc) {
+        data = tgt.data()[0].data;
+        percentage = `<p>Percentage of total: ${getPercentage(tgt.data()[0])}</p>`;
+    }
     if(isBar) data = tgt.data()[0];
     tooltip
         .style("opacity", +(isCountry || isArc || isBar))
@@ -79,6 +83,7 @@ d3.queue()
         <p>Country: ${data.country}</p>
         <p>${formatdataType(dataType)}: ${dataValue}</p>
         <p>Year: ${data.year || d3.select("#year").property("value")}</p>
+        ${percentage}
         `)
     }
     }
@@ -87,4 +92,10 @@ d3.queue()
 
 function formatDataType(key) {
     return key[0].toUpperCase() + key.slice(1).replace(/A-Z]/g, c => " " + c);
+}
+
+function getPercentage(d) {
+    var angle = d.endAngle - d.startAngle;
+    var fraction = 100 * angle / (Math.PI * 2);
+    return fraction.toFixed(2) + "%";
 }
