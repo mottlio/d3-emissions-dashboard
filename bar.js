@@ -83,4 +83,33 @@ function drawBar(data, dataType, country){
     d3.select(".bar-title")
             .text(barTitle);
 
+    var t = d3.transition()
+                .duration(1000)
+                .ease(d3.easeBounceOut);
+
+    var update = bar
+                .selectAll(".bar")
+                .data(countryData);
+
+    update
+        .exit()
+        .transition(t)
+            .delay((d, i, nodes) => (nodes.length - i - 1) * 100)
+            .attr("y", height - padding.bottom)
+            .attr("height", 0)
+            .remove();
+
+    update  
+        .enter()
+        .append("rect")
+            .classed("bar", true)
+            .attr("y", height - padding.bottom)
+            .attr("height", 0)
+        .merge(update)
+            .attr("x", d => (xScale(d.year) + xScale(d.year-1))/2)
+            .attr("width", barWidth - barPadding)
+            .transition(t)
+            .delay((d, i) => i * 100)
+                .attr("y", d => yScale(d[dataType]))
+                .attr("height", d => height - padding.bottom - yScale(d[dataType]));
 }
