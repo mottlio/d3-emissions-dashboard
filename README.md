@@ -11,7 +11,11 @@ Steps in the projects:
 
 ## DATA
 
-Need to make 2 requests: to CSV file and TopoJSON file (for map data).
+Source: http://data.un.org/
+
+The CSV file containing the data I need is stored on the server.
+
+Need to make 2 requests: to CSV file (for UN emissions data)and TopoJSON file (for map data).
 
 I use a d3.queue() which includes 2 defer() calls -> d3.csv and d3.json to fetch the data.
 
