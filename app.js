@@ -77,10 +77,14 @@ d3.queue()
     tooltip 
         .html(`
         <p>Country: ${data.country}</p>
-        <p>${dataType}: ${dataValue}</p>
+        <p>${formatdataType(dataType)}: ${dataValue}</p>
         <p>Year: ${data.year || d3.select("#year").property("value")}</p>
         `)
     }
     }
 
-})
+});
+
+function formatDataType(key) {
+    return key[0].toUpperCase() + key.slice(1).replace(/A-Z]/g, c => " " + c);
+}
