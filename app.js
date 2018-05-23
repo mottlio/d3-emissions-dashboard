@@ -25,8 +25,10 @@ d3.queue()
     
     createMap(width, width * 4 / 5);
     createPie(width, height);
+    createBar(width, height);
     drawMap(geoData, data, currentYear, currentDataType);
     drawPie(data, currentYear);
+    drawBar(data, currentDataType, "");
 
 
     d3.select('#year')
@@ -37,12 +39,16 @@ d3.queue()
             currentYear = +d3.event.target.value;
             drawMap(geoData, data, currentYear, currentDataType);
             drawPie(data, currentYear);
+            highlightBars(currentYear);
         });
 
     d3.selectAll('input[name="data-type"]')
         .on("change", () => {
+            var active = d3.select(".active").data()[0];
+            var country = active ? active.properties.country : "";
             currentDataType = d3.event.target.value;
             drawMap(geoData, data, currentYear, currentDataType);
+            drawBar(data, currentDataType, country);
         });
 
 })

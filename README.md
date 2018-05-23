@@ -17,3 +17,7 @@ I use a d3.queue() which includes 2 defer() calls -> d3.csv and d3.json to fetch
 
 I then use a formatter callback to transfer data from rows in a CSV to an array of JS objects.
 
+##MAP, PIECHART AND BARCHART
+
+I then call d3 methods from within the callback to create (define the area) and draw (populate with data) the charts. For improved code legibility those functions are placed in separate JS files which are called from the index.html file.
+
